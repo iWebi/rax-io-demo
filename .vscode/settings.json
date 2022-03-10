@@ -1,0 +1,20 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 120,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "jest.autoRun": {},
+  "files.exclude": {
+    "**/.history": true,
+    "node_modules": true,
+    ".dynamodb": true,
+    ".webpack": true,
+    ".serverless": true
+  },
+  "files.watcherExclude": {
+    "**/.history/**": true
+  },
+  "tslint.exclude": ["**/.history/**"]
+}

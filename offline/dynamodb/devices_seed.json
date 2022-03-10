@@ -1,0 +1,20 @@
+[
+  {
+    "ip": "10.0.0.1",
+    "id": "12345",
+    "name": "device-1",
+    "hashKey": "network_device",
+    "rangeKey": "12345",
+    "created": "2022-03-06",
+    "updated": "2022-03-06"
+  },
+  {
+    "ip": "10.0.0.2",
+    "id": "22345",
+    "name": "device-2",
+    "hashKey": "network_device",
+    "rangeKey": "22345",
+    "created": "2022-03-06",
+    "updated": "2022-03-06"
+  }
+]

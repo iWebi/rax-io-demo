@@ -1,0 +1,17 @@
+{
+  "Table": {
+    "TableName": "Device",
+    "AttributeDefinitions": [
+      { "AttributeName": "hashKey", "AttributeType": "S" },
+      { "AttributeName": "rangeKey", "AttributeType": "S" }
+    ],
+    "KeySchema": [
+      { "AttributeName": "hashKey", "KeyType": "HASH" },
+      { "AttributeName": "rangeKey", "KeyType": "RANGE" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  }
+}
