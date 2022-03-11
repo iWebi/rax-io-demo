@@ -1,4 +1,5 @@
 import * as repository from "./devicerepository";
+import { sendNewDeviceMessage } from "./sqs";
 import { Device, LambdaProxyResponse } from "./types";
 import { badRequestWith, errorProxyResponse, isNonEmpty, successProxyResponse } from "./utils";
 
@@ -7,6 +8,7 @@ export async function addDevice(deviceRequest: string, tenant: string): Promise<
     const device = validateDeviceForCreateOrUpdate(deviceRequest);
     device.tenantId = tenant;
     await repository.addDevice(device);
+    await sendNewDeviceMessage(device);
     return successProxyResponse(device, 200);
   } catch (err) {
     return errorProxyResponse(err);

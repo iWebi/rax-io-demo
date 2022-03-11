@@ -1,10 +1,3 @@
-/***********************************************************************************
- * Copyright (C) newtechfellas, Inc - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * *********************************************************************************
- */
-
 // default client configuration for each AWS Client
 // AWS SDF v3 does not offer a global config as in v2 (AWS.config)
 // in v3, config needs to be passed to each client instance

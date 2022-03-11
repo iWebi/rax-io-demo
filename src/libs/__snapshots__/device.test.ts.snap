@@ -2,16 +2,17 @@
 
 exports[`addDevice inserts item to DynamoDB for valid request 1`] = `
 Object {
-  "body": "{\\"body\\":\\"\\",\\"statusCode\\":200,\\"statusType\\":\\"OK\\"}",
+  "body": "{\\"ip\\":\\"10.0.0.1\\",\\"name\\":\\"test-device-1\\",\\"tenantId\\":\\"test-tenant-12345\\",\\"id\\":\\"test-random-ulid-value\\",\\"hashKey\\":\\"test-tenant-12345-Devices\\",\\"rangeKey\\":\\"test-random-ulid-value\\",\\"created\\":\\"2022-03-11T06:28:16.263Z\\",\\"updated\\":\\"2022-03-11T06:28:16.263Z\\"}",
   "headers": Object {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
+  "isBase64Encoded": false,
   "statusCode": 200,
 }
 `;
 
-exports[`addDevice inserts item to DynamoDB for valid request 2`] = `
+exports[`addDevice inserts item to DynamoDB for valid request: dynamodb insert payload 1`] = `
 Array [
   Array [
     Object {
@@ -26,6 +27,23 @@ Array [
         "updated": "2022-03-11T06:28:16.263Z",
       },
       "TableName": "Device",
+    },
+  ],
+]
+`;
+
+exports[`addDevice inserts item to DynamoDB for valid request: sqs notification payload 1`] = `
+Array [
+  Array [
+    Object {
+      "created": "2022-03-11T06:28:16.263Z",
+      "hashKey": "test-tenant-12345-Devices",
+      "id": "test-random-ulid-value",
+      "ip": "10.0.0.1",
+      "name": "test-device-1",
+      "rangeKey": "test-random-ulid-value",
+      "tenantId": "test-tenant-12345",
+      "updated": "2022-03-11T06:28:16.263Z",
     },
   ],
 ]
