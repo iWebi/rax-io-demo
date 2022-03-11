@@ -35,7 +35,7 @@ const serverlessConfiguration: AWS = {
       NOTIFICATION_QUEUE_URL: {
         Ref: "DeviceNotificationQueue",
       },
-      NODE_PATH: "/opt/nodejs/node_modules",
+      NODE_PATH: "/opt/node_modules",
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
     },
     iamRoleStatements,
