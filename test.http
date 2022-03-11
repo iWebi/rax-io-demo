@@ -2,10 +2,10 @@
 
 @tenant=12345
 @token=_t_o_k_e_n_
-@baseUrl=https://86rwdlo7w9.execute-api.us-east-1.amazonaws.com/dev/v1.0
-# @baseUrl=http://localhost:3000/dev/v1.0
+# @baseUrl=https://86rwdlo7w9.execute-api.us-east-1.amazonaws.com/dev/v1.0
+@baseUrl=http://localhost:3000/dev/v1.0
 
-@deviceId=01FXVGDD71XA3GQPZPPGBPP32K
+@deviceId=01FXVHQ18KVG7TY06C4A9Z3DTM
 
 ## sample
 POST {{baseUrl}}/{{tenant}}/device

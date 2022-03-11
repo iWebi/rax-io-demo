@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addDevice inserts item to DynamoDB for valid request 1`] = `
+Object {
+  "body": "{\\"body\\":\\"\\",\\"statusCode\\":200,\\"statusType\\":\\"OK\\"}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`addDevice inserts item to DynamoDB for valid request 2`] = `
+Array [
+  Array [
+    Object {
+      "Item": Object {
+        "created": "2022-03-11T06:28:16.263Z",
+        "hashKey": "test-tenant-12345-Devices",
+        "id": "test-random-ulid-value",
+        "ip": "10.0.0.1",
+        "name": "test-device-1",
+        "rangeKey": "test-random-ulid-value",
+        "tenantId": "test-tenant-12345",
+        "updated": "2022-03-11T06:28:16.263Z",
+      },
+      "TableName": "Device",
+    },
+  ],
+]
+`;
+
+exports[`addDevice returns error for invalid json 1`] = `
+Object {
+  "body": "{\\"body\\":\\"Invalid JSON payload\\",\\"statusCode\\":400,\\"statusType\\":\\"Bad Request\\"}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 400,
+}
+`;
+
+exports[`addDevice returns error for missing name field 1`] = `
+Object {
+  "body": "{\\"body\\":\\"Missing mandatory fields: name, ip for device creation\\",\\"statusCode\\":400,\\"statusType\\":\\"Bad Request\\"}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 400,
+}
+`;

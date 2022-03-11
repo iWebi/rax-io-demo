@@ -22,6 +22,7 @@ import {
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 import * as AWSXRay from "aws-xray-sdk";
+import { debug } from "console";
 import DefaultClientConfig from "./awsclientconfig";
 import { DynamoDBQueryResponse, DynamoItemResponse } from "./types";
 import { internalServerErrorWith, notFoundResponse, okResponse, setStatusType } from "./utils";
@@ -108,6 +109,7 @@ export function toDynamoNumber(value: number) {
 }
 
 function throw404(params: any, message?: string) {
+  debug("Item not found for params", params);
   throw notFoundResponse(message);
 }
 

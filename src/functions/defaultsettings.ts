@@ -3,7 +3,6 @@ export default {
     name: "customAuthorizer",
     type: "request",
     identitySource: "method.request.header.authorization",
-    resultTtlInSeconds: 0,
   },
   cors: {
     //TODO: * can be replaced with custom domain list as needed

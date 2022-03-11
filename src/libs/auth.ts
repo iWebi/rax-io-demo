@@ -22,7 +22,7 @@ export function findHeader(headerName: string, headers: StringMap): string | und
 }
 
 export function generatePolicy(requestContext: LambdaRequestContext) {
-  const baseARN = `arn:aws:execute-api:us-east-1:${requestContext.accountId}:${requestContext.apiId}/${requestContext.stage}`;
+  const baseARN = `arn:aws:execute-api:${process.env.AWS_REGION}:${requestContext.accountId}:${requestContext.apiId}/${requestContext.stage}`;
 
   const resources: string[] = [`${baseARN}/*/v*/*`];
 
