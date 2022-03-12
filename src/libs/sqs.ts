@@ -1,6 +1,5 @@
 import { SendMessageCommand, SendMessageCommandInput, SQSClient } from "@aws-sdk/client-sqs";
 import * as AWSXRay from "aws-xray-sdk";
-import { AWS_REGION_DEFAULT } from "./constants";
 import { Device } from "./types";
 
 const sqsClient = buildSQSClient();
@@ -19,7 +18,7 @@ function buildSQSClient() {
   };
   return IS_OFFLINE
     ? new SQSClient(offlineOptions)
-    : AWSXRay.captureAWSv3Client(new SQSClient({ region: AWS_REGION_DEFAULT }));
+    : AWSXRay.captureAWSv3Client(new SQSClient({ region: process.env.AWS_REGION }));
 }
 
 function getNotificationsQueueName(): string {

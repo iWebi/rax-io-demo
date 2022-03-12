@@ -1,23 +1,8 @@
-import {
-  AttributeValue,
-  DeleteItemOutput,
-  DynamoDBClient,
-  QueryOutput,
-  ScanOutput,
-  UpdateItemOutput,
-} from "@aws-sdk/client-dynamodb";
-import {
-  DeleteCommand,
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-  QueryCommand,
-  UpdateCommand,
-} from "@aws-sdk/lib-dynamodb";
+import { DeleteItemOutput, DynamoDBClient, UpdateItemOutput } from "@aws-sdk/client-dynamodb";
+import { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import * as AWSXRay from "aws-xray-sdk";
 import { debug } from "console";
-import DefaultClientConfig from "./awsclientconfig";
-import { DynamoDBQueryResponse, DynamoItemResponse } from "./types";
+import { DynamoItemResponse } from "./types";
 import { internalServerErrorWith, notFoundResponse, okResponse, setStatusType } from "./utils";
 
 const ddbDocClient = buildDocClient();
@@ -28,14 +13,6 @@ export async function getItem(params: any): Promise<DynamoItemResponse<any>> {
     throw404(params);
   }
   return okResponse(data.Item!);
-}
-
-export async function getItems(params: any): Promise<DynamoDBQueryResponse<any>> {
-  const response = await ddbDocClient.send(new QueryCommand(params));
-  if (response.Count! === 0) {
-    throw404(params);
-  }
-  return collectionResponse(response);
 }
 
 export async function putItem(params: any): Promise<DynamoItemResponse<any>> {
@@ -82,25 +59,6 @@ function errorResponse(err: any) {
   return internalServerErrorWith(JSON.stringify(err));
 }
 
-function collectionResponse(data: ScanOutput | QueryOutput) {
-  const output = data.Items;
-  return {
-    Count: output?.length,
-    LastEvaluatedKey: data.LastEvaluatedKey,
-    body: output,
-    statusCode: 200,
-    statusType: "OK",
-  };
-}
-
-export function toDynamoString(value: string): AttributeValue {
-  return { S: value ?? null };
-}
-
-export function toDynamoNumber(value: number) {
-  return { N: value };
-}
-
 function throw404(params: any, message?: string) {
   debug("Item not found for params", params);
   throw notFoundResponse(message);
@@ -134,6 +92,10 @@ export function buildDocClient() {
   };
   const dynamodb = IS_OFFLINE
     ? new DynamoDBClient(offlineOptions)
-    : AWSXRay.captureAWSv3Client(new DynamoDBClient(DefaultClientConfig));
+    : AWSXRay.captureAWSv3Client(
+        new DynamoDBClient({
+          region: process.env.AWS_REGION,
+        })
+      );
   return DynamoDBDocumentClient.from(dynamodb, { marshallOptions, unmarshallOptions });
 }

@@ -1,9 +1,10 @@
+import { APIGatewayProxyResult } from "aws-lambda";
 import * as repository from "./devicerepository";
 import { sendNewDeviceMessage } from "./sqs";
-import { Device, LambdaProxyResponse } from "./types";
-import { badRequestWith, errorProxyResponse, isNonEmpty, successProxyResponse } from "./utils";
+import { Device } from "./types";
+import { badRequestWith, errorProxyResponse, isEmpty, successProxyResponse } from "./utils";
 
-export async function addDevice(deviceRequest: string, tenant: string): Promise<LambdaProxyResponse> {
+export async function addDevice(deviceRequest: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
     const device = validateDeviceForCreateOrUpdate(deviceRequest);
     device.tenantId = tenant;
@@ -23,13 +24,13 @@ function validateDeviceForCreateOrUpdate(deviceRequest: string): Device {
     throw badRequestWith("Invalid JSON payload");
   }
   // Example validations
-  if (isNonEmpty(device.name) && isNonEmpty(device.ip)) {
-    return device;
+  if (isEmpty(device.name) || isEmpty(device.ip)) {
+    throw badRequestWith("Missing mandatory fields: name, ip for device creation");
   }
-  throw badRequestWith("Missing mandatory fields: name, ip for device creation");
+  return device;
 }
 
-export async function getDevice(deviceId: string, tenant: string): Promise<LambdaProxyResponse> {
+export async function getDevice(deviceId: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
     const deviceResponse = await repository.getDevice(deviceId, tenant);
     return successProxyResponse(deviceResponse.body, 200);
@@ -38,7 +39,7 @@ export async function getDevice(deviceId: string, tenant: string): Promise<Lambd
   }
 }
 
-export async function deleteDevice(deviceId: string, tenant: string): Promise<LambdaProxyResponse> {
+export async function deleteDevice(deviceId: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
     const deleteResponse = await repository.deleteDevice(deviceId, tenant);
     return successProxyResponse(deleteResponse.body, 200);
@@ -51,7 +52,7 @@ export async function updateDevice(
   deviceRequest: string,
   deviceId: string,
   tenant: string
-): Promise<LambdaProxyResponse> {
+): Promise<APIGatewayProxyResult> {
   try {
     const device = validateDeviceForCreateOrUpdate(deviceRequest);
     device.id = deviceId;

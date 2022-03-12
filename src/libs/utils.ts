@@ -1,5 +1,6 @@
+import { APIGatewayProxyResult } from "aws-lambda";
 import { DEFAULT_RESPONSE_HEADERS } from "./constants";
-import { AppError, DynamoItemResponse, LambdaProxyResponse } from "./types";
+import { AppError, DynamoItemResponse } from "./types";
 
 export function setStatusType(code: any): string {
   switch (code) {
@@ -39,7 +40,7 @@ export function internalServerErrorWith(message?: string): AppError {
   };
 }
 
-export function errorProxyResponse(error: AppError): LambdaProxyResponse {
+export function errorProxyResponse(error: AppError): APIGatewayProxyResult {
   return {
     body: JSON.stringify(error),
     headers: DEFAULT_RESPONSE_HEADERS,
@@ -47,11 +48,11 @@ export function errorProxyResponse(error: AppError): LambdaProxyResponse {
   };
 }
 
-export function badRequestProxyResponse(message?: string): LambdaProxyResponse {
+export function badRequestProxyResponse(message?: string): APIGatewayProxyResult {
   return errorProxyResponse(badRequestWith(message));
 }
 
-export function successProxyResponse(data?: any, statusCode?: number): LambdaProxyResponse {
+export function successProxyResponse(data?: any, statusCode?: number): APIGatewayProxyResult {
   return {
     body: data ? JSON.stringify(data) : "",
     statusCode: statusCode ?? 200,

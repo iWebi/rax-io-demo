@@ -1,6 +1,11 @@
-import { LambdaEvent, LambdaRequestContext, StringMap } from "./types";
+import {
+  APIGatewayEvent,
+  APIGatewayEventDefaultAuthorizerContext,
+  APIGatewayEventRequestContextWithAuthorizer,
+  APIGatewayProxyEventHeaders,
+} from "aws-lambda";
 
-export async function authorize(event: LambdaEvent) {
+export async function authorize(event: APIGatewayEvent) {
   const authToken = findHeader("Authorization", event.headers);
   // TODO: add custom auth logic here
   // dummy logic for demo purpose
@@ -11,7 +16,7 @@ export async function authorize(event: LambdaEvent) {
   throw new Error("Unauthorized");
 }
 
-export function findHeader(headerName: string, headers: StringMap): string | undefined {
+export function findHeader(headerName: string, headers: APIGatewayProxyEventHeaders): string | undefined {
   headerName = headerName?.toLocaleLowerCase();
   for (const property of Object.keys(headers)) {
     if (property.toLocaleLowerCase() === headerName) {
@@ -21,7 +26,9 @@ export function findHeader(headerName: string, headers: StringMap): string | und
   return undefined;
 }
 
-export function generatePolicy(requestContext: LambdaRequestContext) {
+export function generatePolicy(
+  requestContext: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>
+) {
   const baseARN = `arn:aws:execute-api:${process.env.AWS_REGION}:${requestContext.accountId}:${requestContext.apiId}/${requestContext.stage}`;
 
   const resources: string[] = [`${baseARN}/*/v*/*`];
