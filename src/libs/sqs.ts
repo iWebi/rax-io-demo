@@ -1,5 +1,5 @@
 import { SendMessageCommand, SendMessageCommandInput, SQSClient } from "@aws-sdk/client-sqs";
-import * as AWSXRay from "aws-xray-sdk";
+import * as AWSXRay from "aws-xray-sdk-core";
 import { Device } from "./types";
 
 const sqsClient = buildSQSClient();

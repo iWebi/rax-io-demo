@@ -46,7 +46,6 @@ const serverlessConfiguration: AWS = {
   },
   package: {
     individually: true,
-    excludeDevDependencies: false,
   },
   layers: {
     nodejs: {

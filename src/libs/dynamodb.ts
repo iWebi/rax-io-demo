@@ -1,6 +1,6 @@
 import { DeleteItemOutput, DynamoDBClient, UpdateItemOutput } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import * as AWSXRay from "aws-xray-sdk";
+import * as AWSXRay from "aws-xray-sdk-core";
 import { debug } from "console";
 import { DynamoItemResponse } from "./types";
 import { internalServerErrorWith, notFoundResponse, okResponse, setStatusType } from "./utils";
