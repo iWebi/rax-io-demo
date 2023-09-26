@@ -10,7 +10,11 @@ export async function authorize(event: APIGatewayEvent) {
   // TODO: add custom auth logic here
   // dummy logic for demo purpose
   if (authToken === "_t_o_k_e_n_") {
-    return generatePolicy(event.requestContext);
+    const foo = generatePolicy(event.requestContext);
+    console.log("token matched. returning policy1 ", JSON.stringify(foo, undefined, 2));
+    return foo;
+  } else {
+    console.log("token not matched");
   }
   // all other scenarios, invalid
   throw new Error("Unauthorized");
@@ -29,7 +33,10 @@ export function findHeader(headerName: string, headers: APIGatewayProxyEventHead
 export function generatePolicy(
   requestContext: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>
 ) {
-  const baseARN = `arn:aws:execute-api:${process.env.AWS_REGION}:${requestContext.accountId}:${requestContext.apiId}/${requestContext.stage}`;
+  let baseARN = `arn:aws:execute-api:${process.env.AWS_REGION}:${requestContext.accountId}:${requestContext.apiId}/${requestContext.stage}`;
+  if (process.env.IS_OFFLINE) {
+    baseARN = `arn:aws:execute-api:${process.env.AWS_REGION}:random-account-id:random-api-id/${requestContext.stage}`;
+  }
 
   const resources: string[] = [`${baseARN}/*/v*/*`];
 

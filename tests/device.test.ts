@@ -1,11 +1,11 @@
 import * as ulid from "ulid";
-import { addDevice } from "./device";
-import * as dynamodb from "./dynamodb";
-import * as sqs from "./sqs";
-import { okResponse } from "./utils";
+import { addDevice } from "../src/libs/device";
+import * as dynamodb from "../src/libs/dynamodb";
+import * as sqs from "../src/libs/sqs";
+import { okResponse } from "../src/libs/utils";
 
-jest.mock("./dynamodb");
-jest.mock("./sqs");
+jest.mock("../src/libs/dynamodb");
+jest.mock("../src/libs/sqs");
 jest.mock("ulid");
 
 const mockedDynamoDB = dynamodb as jest.Mocked<typeof dynamodb>;

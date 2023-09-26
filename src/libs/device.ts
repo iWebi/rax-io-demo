@@ -2,7 +2,7 @@ import { APIGatewayProxyResult } from "aws-lambda";
 import * as repository from "./devicerepository";
 import { sendNewDeviceMessage } from "./sqs";
 import { Device } from "./types";
-import { badRequestWith, errorProxyResponse, isEmpty, successProxyResponse } from "./utils";
+import { badRequestWith, errorResponse, isEmpty, successResponse } from "./utils";
 
 export async function addDevice(deviceRequest: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
@@ -10,9 +10,9 @@ export async function addDevice(deviceRequest: string, tenant: string): Promise<
     device.tenantId = tenant;
     await repository.addDevice(device);
     await sendNewDeviceMessage(device);
-    return successProxyResponse(device, 200);
+    return successResponse(device, 200);
   } catch (err) {
-    return errorProxyResponse(err);
+    return errorResponse(err);
   }
 }
 
@@ -23,7 +23,7 @@ function validateDeviceForCreateOrUpdate(deviceRequest: string): Device {
   } catch (err) {
     throw badRequestWith("Invalid JSON payload");
   }
-  // Example validations
+  // Dummy validations. JSON schema validators https://ajv.js.org can be considered instead
   if (isEmpty(device.name) || isEmpty(device.ip)) {
     throw badRequestWith("Missing mandatory fields: name, ip for device creation");
   }
@@ -33,18 +33,18 @@ function validateDeviceForCreateOrUpdate(deviceRequest: string): Device {
 export async function getDevice(deviceId: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
     const deviceResponse = await repository.getDevice(deviceId, tenant);
-    return successProxyResponse(deviceResponse.body, 200);
+    return successResponse(deviceResponse.body, 200);
   } catch (err) {
-    return errorProxyResponse(err);
+    return errorResponse(err);
   }
 }
 
 export async function deleteDevice(deviceId: string, tenant: string): Promise<APIGatewayProxyResult> {
   try {
     const deleteResponse = await repository.deleteDevice(deviceId, tenant);
-    return successProxyResponse(deleteResponse.body, 200);
+    return successResponse(deleteResponse.body, 200);
   } catch (err) {
-    return errorProxyResponse(err);
+    return errorResponse(err);
   }
 }
 
@@ -58,8 +58,8 @@ export async function updateDevice(
     device.id = deviceId;
     device.tenantId = tenant;
     const updateResponse = await repository.updateDevice(device);
-    return successProxyResponse(updateResponse.body);
+    return successResponse(updateResponse.body);
   } catch (err) {
-    return errorProxyResponse(err);
+    return errorResponse(err);
   }
 }

@@ -8,20 +8,9 @@ import resources from "./resources";
 const serverlessConfiguration: AWS = {
   service: "rax-io-demo",
   frameworkVersion: "3",
-  custom: {
-    webpack: {
-      webpackConfig: "./webpack.config.js",
-      includeModules: false,
-    },
-    prune: {
-      automatic: true,
-      number: 3,
-    },
-    ...offlineresources,
-  },
   provider: {
     name: "aws",
-    runtime: "nodejs14.x",
+    runtime: "nodejs18.x",
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -35,7 +24,6 @@ const serverlessConfiguration: AWS = {
       NOTIFICATION_QUEUE_URL: {
         Ref: "DeviceNotificationQueue",
       },
-      NODE_PATH: "/opt/node_modules",
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
     },
     iamRoleStatements,
@@ -52,12 +40,32 @@ const serverlessConfiguration: AWS = {
       name: "nodejs",
       path: "layer",
       description: "API NodeJS dependencies with aws-sdk v3",
-      compatibleRuntimes: ["nodejs14.x"],
+      compatibleRuntimes: ["nodejs18.x"],
     },
   },
   plugins,
   resources,
   functions,
+  custom: {
+    webpack: {
+      webpackConfig: "./webpack.config.js",
+      includeModules: false,
+    },
+    prune: {
+      automatic: true,
+      number: 3,
+    },
+    autoswagger: {
+      title: "rax-io-demo.api.com",
+      basePath: "/dev",
+      generateSwaggerOnDeploy: true,
+      apiKeyHeaders: [ "Authorization"],
+      typefiles: ["./src/libs/types.ts"],
+      apiType: "http",
+      schemes: ["https", "http"]
+    },
+    ...offlineresources,
+  },
 };
 
 module.exports = serverlessConfiguration;

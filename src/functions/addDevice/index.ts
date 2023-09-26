@@ -18,6 +18,19 @@ export default {
             },
           },
         },
+        // OpenAPI (Swagger) docs related
+        summary: "Add a new device to inventory",
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        swaggerTags: ["Device"],
+        bodyType: "DeviceReq",
+        responseData: {
+          200: {
+            bodyType: "Device"
+          },
+          400: "Invalid payload",
+          500: "Internal server error. Please try again later"
+        }
       },
     },
   ],

@@ -40,7 +40,7 @@ export function internalServerErrorWith(message?: string): AppError {
   };
 }
 
-export function errorProxyResponse(error: AppError): APIGatewayProxyResult {
+export function errorResponse(error: AppError): APIGatewayProxyResult {
   return {
     body: JSON.stringify(error),
     headers: DEFAULT_RESPONSE_HEADERS,
@@ -48,11 +48,11 @@ export function errorProxyResponse(error: AppError): APIGatewayProxyResult {
   };
 }
 
-export function badRequestProxyResponse(message?: string): APIGatewayProxyResult {
-  return errorProxyResponse(badRequestWith(message));
+export function badRequestResponse(message?: string): APIGatewayProxyResult {
+  return errorResponse(badRequestWith(message));
 }
 
-export function successProxyResponse(data?: any, statusCode?: number): APIGatewayProxyResult {
+export function successResponse(data?: any, statusCode?: number): APIGatewayProxyResult {
   return {
     body: data ? JSON.stringify(data) : "",
     statusCode: statusCode ?? 200,

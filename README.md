@@ -18,6 +18,9 @@ This template demonstrates how to deploy a NodeJS function running on AWS Lambda
 
 ## Usage
 
+### rax.io talk
+[Serverless Introduction](https://web.microsoftstream.com/video/30094565-cc20-4702-9bca-eef927f54221?channelId=3237e715-5c23-4833-a0a5-1690a7437c3a) rax.io talk describes this repository features in detail.
+
 ### Deployment
 
 In order to deploy the example, you need to run the following command:

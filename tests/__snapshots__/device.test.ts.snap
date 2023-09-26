@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`addDevice inserts item to DynamoDB for valid request 1`] = `
-Object {
-  "body": "{\\"ip\\":\\"10.0.0.1\\",\\"name\\":\\"test-device-1\\",\\"tenantId\\":\\"test-tenant-12345\\",\\"id\\":\\"test-random-ulid-value\\",\\"hashKey\\":\\"test-tenant-12345-Devices\\",\\"rangeKey\\":\\"test-random-ulid-value\\",\\"created\\":\\"2022-03-11T06:28:16.263Z\\",\\"updated\\":\\"2022-03-11T06:28:16.263Z\\"}",
-  "headers": Object {
+{
+  "body": "{"ip":"10.0.0.1","name":"test-device-1","tenantId":"test-tenant-12345","id":"test-random-ulid-value","hashKey":"test-tenant-12345-Devices","rangeKey":"test-random-ulid-value","created":"2022-03-11T06:28:16.263Z","updated":"2022-03-11T06:28:16.263Z"}",
+  "headers": {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
@@ -13,10 +13,10 @@ Object {
 `;
 
 exports[`addDevice inserts item to DynamoDB for valid request: dynamodb insert payload 1`] = `
-Array [
-  Array [
-    Object {
-      "Item": Object {
+[
+  [
+    {
+      "Item": {
         "created": "2022-03-11T06:28:16.263Z",
         "hashKey": "test-tenant-12345-Devices",
         "id": "test-random-ulid-value",
@@ -33,9 +33,9 @@ Array [
 `;
 
 exports[`addDevice inserts item to DynamoDB for valid request: sqs notification payload 1`] = `
-Array [
-  Array [
-    Object {
+[
+  [
+    {
       "created": "2022-03-11T06:28:16.263Z",
       "hashKey": "test-tenant-12345-Devices",
       "id": "test-random-ulid-value",
@@ -50,9 +50,9 @@ Array [
 `;
 
 exports[`addDevice returns error for invalid json 1`] = `
-Object {
-  "body": "{\\"body\\":\\"Invalid JSON payload\\",\\"statusCode\\":400,\\"statusType\\":\\"Bad Request\\"}",
-  "headers": Object {
+{
+  "body": "{"body":"Invalid JSON payload","statusCode":400,"statusType":"Bad Request"}",
+  "headers": {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
@@ -61,9 +61,9 @@ Object {
 `;
 
 exports[`addDevice returns error for missing name field 1`] = `
-Object {
-  "body": "{\\"body\\":\\"Missing mandatory fields: name, ip for device creation\\",\\"statusCode\\":400,\\"statusType\\":\\"Bad Request\\"}",
-  "headers": Object {
+{
+  "body": "{"body":"Missing mandatory fields: name, ip for device creation","statusCode":400,"statusType":"Bad Request"}",
+  "headers": {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },

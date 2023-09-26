@@ -19,6 +19,20 @@ export default {
             },
           },
         },
+        // OpenAPI (Swagger) docs related
+        summary: "Update an existing device from inventory",
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        swaggerTags: ["Device"],
+        bodyType: "Device",
+        responseData: {
+          200: {
+            bodyType: "Device"
+          },
+          400: "Invalid payload",
+          404: "Device not found",
+          500: "Internal server error. Please try again later"
+        }
       },
     },
   ],

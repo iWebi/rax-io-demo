@@ -19,6 +19,18 @@ export default {
             },
           },
         },
+        // OpenAPI (Swagger) docs related
+        summary: "Delete an existing device from inventory",
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        swaggerTags: ["Device"],
+        responseData: {
+          200: {
+            bodyType: "Device"
+          },
+          404: "Device not found",
+          500: "Internal server error. Please try again later"
+        }
       },
     },
   ],

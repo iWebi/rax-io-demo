@@ -1,4 +1,5 @@
 export default [
+  "serverless-auto-swagger",
   "serverless-webpack",
   "serverless-iam-roles-per-function",
   "serverless-api-gateway-execution-log-manager",
@@ -6,5 +7,5 @@ export default [
   "serverless-offline-elasticmq",
   "serverless-offline-sqs",
   "serverless-dynamodb-local",
-  "serverless-offline",
+  "serverless-offline"
 ];

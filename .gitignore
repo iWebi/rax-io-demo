@@ -12,3 +12,8 @@ jspm_packages
 .nvmrc
 .env
 .dynamodb
+.idea/
+coverage/
+crud.http
+rax-io-demo.iml
+swagger/

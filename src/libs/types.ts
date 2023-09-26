@@ -12,6 +12,11 @@ export interface Device extends BaseEntity {
   ip: string;
 }
 
+export interface DeviceReq  {
+  name: string;
+  ip: string;
+}
+
 export interface AppError {
   body: string;
   statusCode: number;
